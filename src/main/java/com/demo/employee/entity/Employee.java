@@ -13,6 +13,7 @@ public class Employee {
 
     @Column(name = "employeeid")
     private String employeeId;
+
     @Column(name = "first_name")
     private String firstName;
 
@@ -20,6 +21,18 @@ public class Employee {
     private String lastName;
 
     private Integer age;
+
+    public Employee(){
+
+    }
+    public Employee(Long id, String employeeId, String firstName, String lastName, Integer age) {
+        this.id = id;
+        this.employeeId = employeeId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+    }
+
 
     public String getEmployeeId() {
         return employeeId;
@@ -35,17 +48,6 @@ public class Employee {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Employee(){
-
-    }
-    public Employee(Long id, String employeeId, String firstName, String lastName, Integer age) {
-        this.id = id;
-        this.employeeId = employeeId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
     }
 
     public Integer getAge() {
