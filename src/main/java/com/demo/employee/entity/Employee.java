@@ -33,6 +33,11 @@ public class Employee {
         this.age = age;
     }
 
+    public Employee(Long id, String employeeId) {
+        this.id = id;
+        this.employeeId = employeeId;
+    }
+
 
     public String getEmployeeId() {
         return employeeId;
