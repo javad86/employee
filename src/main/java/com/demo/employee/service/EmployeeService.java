@@ -1,6 +1,7 @@
 package com.demo.employee.service;
 
 import com.demo.employee.entity.Employee;
+import com.demo.employee.exception.EmployeeNotFoundException;
 import com.demo.employee.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +16,8 @@ public class EmployeeService {
     EmployeeRepository repo;
 
     public Employee getEmployee(Long id) {
-        //Employee emp = new Employee("123", "John", "Doe", 25);
         Optional<Employee> employeeOptional = repo.findById(id);
-        return employeeOptional.orElse(null);
+        return employeeOptional.orElseThrow(() -> new EmployeeNotFoundException("Employee with this Id does not exist: " + id));
     }
 
     public void addEmployee(Employee employee) {
