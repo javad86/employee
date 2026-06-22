@@ -14,7 +14,6 @@ public class EmployeeService {
     EmployeeRepository repo;
 
     public Employee getEmployee(Long id) {
-        //Employee emp = new Employee("123", "John", "Doe", 25);
         Optional<Employee> employeeOptional = repo.findById(id);
         return employeeOptional.orElse(null);
     }
