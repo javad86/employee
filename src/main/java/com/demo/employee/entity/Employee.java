@@ -1,14 +1,12 @@
 package com.demo.employee.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "employee")
 public class Employee {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "employeeid")
@@ -31,6 +29,11 @@ public class Employee {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
+    }
+
+    public Employee(Long id, String employeeId) {
+        this.id = id;
+        this.employeeId = employeeId;
     }
 
 
