@@ -1,29 +1,37 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'master',
-                url: 'https://github.com/javad86/employee.git'
-            }
-        }
+    environment {
+        IMAGE_NAME = 'javad86/employee'
+        IMAGE_TAG = "${BUILD_NUMBER}"
+    }
 
-        stage('Build') {
+    stages {
+        stage('Build JAR') {
             steps {
                 sh 'chmod +x mvnw'
                 sh './mvnw clean package -DskipTests'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh """
+                    docker build \
+                      -t ${IMAGE_NAME}:${IMAGE_TAG} \
+                      -t ${IMAGE_NAME}:latest .
+                """
             }
         }
     }
 
     post {
         success {
-            echo 'Employee project built successfully.'
+            echo "Docker image built successfully: ${IMAGE_NAME}:${IMAGE_TAG}"
         }
 
         failure {
-            echo 'Employee project build failed.'
+            echo 'Build failed.'
         }
     }
 }
