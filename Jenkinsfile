@@ -1,3 +1,12 @@
+Manage Jenkins → Credentials → System → Global credentials → Add Credentials
+
+Use:
+
+Kind: Username with password
+ID: dockerhub-creds
+Username: your Docker Hub username
+Password: Docker Hub access token
+
 pipeline {
     agent any
 
@@ -23,15 +32,24 @@ pipeline {
                 """
             }
         }
-    }
 
-    post {
-        success {
-            echo "Docker image built successfully: ${IMAGE_NAME}:${IMAGE_TAG}"
-        }
-
-        failure {
-            echo 'Build failed.'
+        stage('Push to Docker Hub') {
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'dockerhub-creds',
+                        usernameVariable: 'DOCKERHUB_USER',
+                        passwordVariable: 'DOCKERHUB_TOKEN'
+                    )
+                ]) {
+                    sh """
+                        echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USER" --password-stdin
+                        docker push ${IMAGE_NAME}:${IMAGE_TAG}
+                        docker push ${IMAGE_NAME}:latest
+                        docker logout
+                    """
+                }
+            }
         }
     }
 }
