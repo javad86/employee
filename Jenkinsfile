@@ -1,12 +1,4 @@
-Manage Jenkins → Credentials → System → Global credentials → Add Credentials
-
-Use:
-
-Kind: Username with password
-ID: dockerhub-creds
-Username: your Docker Hub username
-Password: Docker Hub access token
-
+// this is a comment
 pipeline {
     agent any
 
