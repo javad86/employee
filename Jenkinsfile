@@ -43,5 +43,15 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy to Kubernetes') {
+			steps {
+				sh '''
+					kubectl apply -f deployment/deployment.yaml
+					kubectl apply -f deployment/service.yaml
+					kubectl rollout status deployment/employee
+				'''
+			}
+		}
     }
 }
