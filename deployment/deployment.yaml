@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: employee
-          image: javad86/employee:latest
+          image: javad86/employee:20
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
