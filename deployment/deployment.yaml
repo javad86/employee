@@ -18,3 +18,10 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://192.168.1.153:5432/employeedb
+            - name: SPRING_DATASOURCE_USERNAME
+              value: javad
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: password
