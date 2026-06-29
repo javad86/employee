@@ -1,14 +1,17 @@
 package com.demo.employee.exception;
 
-import lombok.extern.log4j.Log4j2;
+// Removed Lombok @Log4j2 to avoid compilation issues when Lombok isn't available.
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-@Log4j2
 public class EmployeeExceptionHandler {
+
+    private static final Logger log = LogManager.getLogger(EmployeeExceptionHandler.class);
 
     @ExceptionHandler
     public ResponseEntity<ErrorInfo> handleEmployeeNotFoundException(EmployeeNotFoundException exp){
